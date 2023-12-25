@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
   // };
   
   rightResponse.cookies.set('withName', 'aaaa', {name: JWT_CART, value: 'aaaa', sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
-  rightResponse.cookies.set('withoutName', 'aaaa', { sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
+  // rightResponse.cookies.set('withoutName', 'aaaa', { sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
   
 
   if (cartTokenCookie === undefined) {
