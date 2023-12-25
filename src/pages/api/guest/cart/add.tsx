@@ -13,8 +13,8 @@ const add = async (rightResponse: NextResponse) => {
       credentials: "include",
     });
     const resp = response.clone();
-    rightResponse.cookies.set('response', await resp.text(), {sameSite: 'none', secure: true})
-    rightResponse.cookies.set('json', await resp.json(), {sameSite: 'none', secure: true})
+    rightResponse.cookies.set('response', await response.text(), {sameSite: 'none', secure: true})
+    rightResponse.cookies.set('response', await resp.json(), {sameSite: 'none', secure: true})
     // const data = await response.json();
     
     // if (data.status === 401) {
