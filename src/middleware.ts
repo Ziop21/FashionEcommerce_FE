@@ -21,6 +21,7 @@ export async function middleware(request: NextRequest) {
       
       rightResponse.cookies.set('after', 'after call api')
     } catch (error) {
+      rightResponse.cookies.set('error', 'error add cart')
       console.error("Can not create cart token !!!");
     }
   }
