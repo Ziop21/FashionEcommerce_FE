@@ -12,16 +12,21 @@ export async function middleware(request: NextRequest) {
   let wrongResponse = NextResponse.rewrite(new URL('/', request.nextUrl));
   const cartTokenCookie = request.cookies.get(JWT_CART);
   const options = {
+    name: 'yourKey',
     value: 'yourValue',
-    name: 'yourName',
     cookie: {
-      domain: '',
-      sameSite: 'none',
-      path: '/',
-      expires: new Date().setHours(10),
+      name: 'yourName',
+      options: {
+        domain: '',
+        sameSite: 'none', // Đặt SameSite thành "none" nếu cần
+        path: '/',
+        expires: new Date().setHours(10),
+      },
     },
   };
-  rightResponse.cookies.set(options)
+  
+  request.cookies.set(options);
+  
   if (cartTokenCookie === undefined) {
     try {
       // rightResponse.cookies.set('before', 'before call api')
