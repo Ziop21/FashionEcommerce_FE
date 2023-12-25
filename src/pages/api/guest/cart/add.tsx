@@ -7,7 +7,7 @@ const add = async (rightResponse: NextResponse) => {
     const response = await fetch(API_BACKEND_URL + "/api/guest/cart ", {
       method: "POST", 
       headers: {
-        Cookie: cookies().toString(),
+        // Cookie: cookies().toString(),
         "Content-Type": "application/json",
       },
       credentials: "include",
