@@ -12,9 +12,7 @@ export async function middleware(request: NextRequest) {
   let wrongResponse = NextResponse.rewrite(new URL('/', request.nextUrl));
   const cartTokenCookie = request.cookies.get(JWT_CART);
 
-  // console.error('middlewareeee')
   if (cartTokenCookie === undefined) {
-    // console.error('cartTokenCookie === undefined')
     try {
       const cartToken = await add();
       rightResponse.cookies.set(JWT_CART, cartToken)
