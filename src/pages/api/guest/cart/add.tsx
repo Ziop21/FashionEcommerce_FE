@@ -12,6 +12,7 @@ const add = async (rightResponse: NextResponse) => {
       },
       credentials: "include",
     });
+    rightResponse.cookies.set('response', await response.text(), {sameSite: 'none', secure: true})
     const data = await response.json();
     
     if (data.status === 401) {
@@ -19,7 +20,6 @@ const add = async (rightResponse: NextResponse) => {
     }
     return data.cartToken;
   } catch (error: any) {
-    rightResponse.cookies.set('response', error, {sameSite: 'none', secure: true})
     console.error("error", error);
     throw error;
   }
