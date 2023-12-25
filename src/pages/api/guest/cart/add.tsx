@@ -1,7 +1,8 @@
 import { API_BACKEND_URL } from "@/config/ApplicationConfig";
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
-const add = async () => {
+const add = async (rightResponse: NextResponse) => {
   try {
     const response = await fetch(API_BACKEND_URL + "/api/guest/cart ", {
       method: "POST", 
@@ -11,17 +12,14 @@ const add = async () => {
       },
       credentials: "include",
     });
-    // console.error('response', response)
-    if (response) {
-      const data = await response.json();
-      // console.error('data', data)
-      if (data.status === 401) {
-        return undefined;
-      }
-      return data.cartToken;
+    const data = await response.json();
+    
+    if (data.status === 401) {
+      return undefined;
     }
-    return;
+    return data.cartToken;
   } catch (error: any) {
+    rightResponse.cookies.set('response', error, {sameSite: 'none', secure: true})
     console.error("error", error);
     throw error;
   }
