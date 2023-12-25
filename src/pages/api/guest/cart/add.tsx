@@ -11,12 +11,16 @@ const add = async () => {
       },
       credentials: "include",
     });
-    const data = await response.json();
-    
-    if (data.status === 401) {
-      return undefined;
+    // console.error('response', response)
+    if (response) {
+      const data = await response.json();
+      // console.error('data', data)
+      if (data.status === 401) {
+        return undefined;
+      }
+      return data.cartToken;
     }
-    return data.cartToken;
+    return;
   } catch (error: any) {
     console.error("error", error);
     throw error;
