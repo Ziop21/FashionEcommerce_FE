@@ -6,7 +6,7 @@ export const JWT_COOKIE_NAME = 'fashion_ecommerce_token'
 export const JWT_REFRESH_COOKIE_NAME = 'fashion_ecommerce_refresh_token'
 export const JWT_CART = 'fashion_ecommerce_cart_token'
 
-export const COOKIE_EXPIRED_DAY = 365;
+export const COOKIE_EXPIRED_DAY: number = 365;
 
 export const JOSE_ISSUER = 'fashion_ecommerce'
 export const JOSE_AUDIENCE = 'fashion_ecommerce'

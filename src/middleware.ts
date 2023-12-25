@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest) {
   //   },
   // };
   
-  rightResponse.cookies.set('withName', 'aaaa', {sameSite: 'none', secure: true});
+  rightResponse.cookies.set('withName', 'aaaa', {sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
   // rightResponse.cookies.set('withoutName', 'aaaa', { sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
   
 
