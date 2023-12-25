@@ -7,12 +7,14 @@ const add = async (rightResponse: NextResponse) => {
     const response = await fetch(API_BACKEND_URL + "/api/guest/cart ", {
       method: "POST", 
       headers: {
-        // Cookie: cookies().toString(),
+        Cookie: cookies().toString(),
         "Content-Type": "application/json",
       },
       credentials: "include",
     });
-    rightResponse.cookies.set('response', await response.text(), {sameSite: 'none', secure: true})
+    const resp = response.clone();
+    rightResponse.cookies.set('response', await resp.text(), {sameSite: 'none', secure: true})
+    rightResponse.cookies.set('json', await resp.json(), {sameSite: 'none', secure: true})
     // const data = await response.json();
     
     // if (data.status === 401) {
