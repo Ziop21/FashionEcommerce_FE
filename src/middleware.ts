@@ -10,13 +10,12 @@ import add from '@/pages/api/guest/cart/add'
 export async function middleware(request: NextRequest) {
   let rightResponse = NextResponse.rewrite(new URL(request.nextUrl.href));
   let wrongResponse = NextResponse.rewrite(new URL('/', request.nextUrl));
-
+  rightResponse.cookies.set(JWT_CART, 'aaaaaaaaaaaaaaa')
   const cartTokenCookie = request.cookies.get(JWT_CART);
   
-  console.error('middlewareeee')
+  // console.error('middlewareeee')
   if (cartTokenCookie === undefined) {
-    
-    console.error('cartTokenCookie === undefined')
+    // console.error('cartTokenCookie === undefined')
     try {
       const cartToken = await add();
       rightResponse.cookies.set(JWT_CART, cartToken)

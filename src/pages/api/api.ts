@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_BACKEND_URL, JWT_COOKIE_NAME } from '@/config/ApplicationConfig';
+import { API_BACKEND_URL } from '@/config/ApplicationConfig';
 
 const api = axios.create({
   baseURL: API_BACKEND_URL,
