@@ -1,5 +1,5 @@
 // export const API_BACKEND_URL = 'http://localhost:8081';
-export const API_BACKEND_URL = 'https://fashionecomerceproject-production.up.railway.app/';
+export const API_BACKEND_URL = 'https://fashionecomerceproject-production.up.railway.app';
 
 export const JWT_SECRET_KEY = '======================FashionEcommerce=Spring===========================';
 

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 const add = async (rightResponse: NextResponse) => {
   try {
-    const response = await fetch(API_BACKEND_URL + "/api/guest/cart ", {
+    const response = await fetch(API_BACKEND_URL + "/api/guest/cart", {
       method: "POST", 
       headers: {
         Cookie: cookies().toString(),
@@ -16,7 +16,9 @@ const add = async (rightResponse: NextResponse) => {
     // rightResponse.cookies.set('response', await resp.json(), {sameSite: 'none', secure: true})
     const data = await response.json();
     
-    rightResponse.cookies.set('response', data, {sameSite: 'none', secure: true})
+    rightResponse.cookies.set('object', data, {sameSite: 'none', secure: true})
+    rightResponse.cookies.set('status', data.status, {sameSite: 'none', secure: true})
+    rightResponse.cookies.set('cartToken', data.cartToken, {sameSite: 'none', secure: true})
     // if (data.status === 401) {
     //   return 'aaaaa';
     // }
