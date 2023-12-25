@@ -12,12 +12,12 @@ export async function middleware(request: NextRequest) {
   let wrongResponse = NextResponse.rewrite(new URL('/', request.nextUrl));
   const cartTokenCookie = request.cookies.get(JWT_CART);
   const options = {
-    key: 'yourKey',
     value: 'yourValue',
-    name: '',
+    name: 'yourName',
     cookie: {
-      domain: 'example.com',
-      path: '/your-path',
+      domain: '',
+      sameSite: 'none',
+      path: '/',
       expires: new Date().setHours(10),
     },
   };
