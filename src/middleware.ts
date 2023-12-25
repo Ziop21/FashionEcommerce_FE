@@ -6,30 +6,13 @@ import { COOKIE_EXPIRED_DAY, JWT_CART, JWT_COOKIE_NAME, JWT_REFRESH_COOKIE_NAME 
 import { RefreshTokenHandler } from './server/handler/AuthenticationHandler';
 import { ERole } from './pages/api/admin/user/Models';
 import add from '@/pages/api/guest/cart/add'
-import { ResponseCookies } from 'next/dist/server/web/spec-extension/cookies';
 
 export async function middleware(request: NextRequest) {
   let rightResponse = NextResponse.rewrite(new URL(request.nextUrl.href));
   let wrongResponse = NextResponse.rewrite(new URL('/', request.nextUrl));
   const cartTokenCookie = request.cookies.get(JWT_CART);
-  // const setRightCookies = new ResponseCookies(rightResponse.headers);
-  // const setWrongCookies = new ResponseCookies(wrongResponse.headers);
   
-  // const options = {
-  //   name: 'yourKey',
-  //   value: 'yourValue',
-  //   cookie: {
-  //     name: 'yourName',
-  //     options: {
-  //       domain: '',
-  //       sameSite: 'none', // Đặt SameSite thành "none" nếu cần
-  //       path: '/',
-  //       expires: new Date().setHours(10),
-  //     },
-  //   },
-  // };
-  
-  rightResponse.cookies.set('withName', 'aaaa', {sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
+  // rightResponse.cookies.set('withName', 'aaaa', {sameSite: 'none', secure: true});
   // rightResponse.cookies.set('withoutName', 'aaaa', { sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
   
 
@@ -37,8 +20,8 @@ export async function middleware(request: NextRequest) {
     try {
       // rightResponse.cookies.set('before', 'before call api')
       const cartToken = await add();
-      rightResponse.cookies.set(JWT_CART, cartToken)
-      wrongResponse.cookies.set(JWT_CART, cartToken)
+      rightResponse.cookies.set(JWT_CART, cartToken, {sameSite: 'none', secure: true})
+      wrongResponse.cookies.set(JWT_CART, cartToken, {sameSite: 'none', secure: true})
       
       // rightResponse.cookies.set('after', 'after call api')
     } catch (error: any) {
@@ -60,7 +43,7 @@ export async function middleware(request: NextRequest) {
           const jwt = await RefreshTokenHandler();
           if (jwt) {
             // let response = NextResponse.redirect(new URL(request.nextUrl.href));
-            rightResponse.cookies.set(JWT_COOKIE_NAME, jwt)
+            rightResponse.cookies.set(JWT_COOKIE_NAME, jwt, {sameSite: 'none', secure: true})
           } else {
             // let response =  NextResponse.rewrite(new URL('/login', request.nextUrl));
             wrongResponse.cookies.delete(JWT_COOKIE_NAME);
