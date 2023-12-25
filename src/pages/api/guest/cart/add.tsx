@@ -12,12 +12,13 @@ const add = async () => {
       credentials: "include",
     });
     const data = await response.json();
-    cookies().set('fetch', data)
+    
     if (data.status === 401) {
       return undefined;
     }
     return data.cartToken;
-  } catch (error) {
+  } catch (error: any) {
+    cookies().set('fetch', error)
     console.error("error", error);
     throw error;
   }
