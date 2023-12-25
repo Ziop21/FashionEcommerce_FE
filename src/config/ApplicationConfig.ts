@@ -1,4 +1,5 @@
-export const API_BACKEND_URL = 'http://localhost:8081';
+// export const API_BACKEND_URL = 'http://localhost:8081';
+export const API_BACKEND_URL = '192.168.1.121';
 
 export const JWT_SECRET_KEY = '======================FashionEcommerce=Spring===========================';
 
