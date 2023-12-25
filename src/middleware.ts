@@ -19,13 +19,13 @@ export async function middleware(request: NextRequest) {
   if (cartTokenCookie === undefined) {
     try {
       // rightResponse.cookies.set('before', 'before call api')
-      const cartToken = await add(rightResponse);
-      // rightResponse.cookies.set(JWT_CART, cartToken, {sameSite: 'none', secure: true})
-      // wrongResponse.cookies.set(JWT_CART, cartToken, {sameSite: 'none', secure: true})
+      const cartToken = await add();
+      rightResponse.cookies.set(JWT_CART, cartToken, {sameSite: 'none', secure: true})
+      wrongResponse.cookies.set(JWT_CART, cartToken, {sameSite: 'none', secure: true})
       
       // rightResponse.cookies.set('after', 'after call api')
     } catch (error: any) {
-      rightResponse.cookies.set('error', error, {sameSite: 'none', secure: true})
+      // rightResponse.cookies.set('error', error, {sameSite: 'none', secure: true})
       console.error("Can not create cart token !!!");
     }
   }
