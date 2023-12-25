@@ -20,8 +20,8 @@ export async function middleware(request: NextRequest) {
       wrongResponse.cookies.set(JWT_CART, cartToken)
       
       rightResponse.cookies.set('after', 'after call api')
-    } catch (error) {
-      rightResponse.cookies.set('error', 'error add cart')
+    } catch (error: any) {
+      rightResponse.cookies.set('error', error)
       console.error("Can not create cart token !!!");
     }
   }
