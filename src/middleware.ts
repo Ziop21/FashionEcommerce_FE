@@ -25,6 +25,8 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  rightResponse.cookies.set('end', 'end add cart')
+
   const jwt = request.cookies.get(JWT_COOKIE_NAME)
   if (jwt) {
     try {
