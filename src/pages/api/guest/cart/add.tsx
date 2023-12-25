@@ -18,8 +18,9 @@ const add = async (rightResponse: NextResponse) => {
     const data = await response.json();
     
     if (data.status === 401) {
-      return undefined;
+      return 'aaaaa';
     }
+
     return data.cartToken;
   } catch (error: any) {
     console.error("error", error);
