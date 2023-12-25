@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { getCurrentUserRoles } from './server/handler/AuthorizationHanlder';
 import AuthenJwtDecoder from './utils/AuthenJwtDecoder';
-import { JWT_CART, JWT_COOKIE_NAME, JWT_REFRESH_COOKIE_NAME } from './config/ApplicationConfig';
+import { COOKIE_EXPIRED_DAY, JWT_CART, JWT_COOKIE_NAME, JWT_REFRESH_COOKIE_NAME } from './config/ApplicationConfig';
 import { RefreshTokenHandler } from './server/handler/AuthenticationHandler';
 import { ERole } from './pages/api/admin/user/Models';
 import add from '@/pages/api/guest/cart/add'
@@ -29,13 +29,13 @@ export async function middleware(request: NextRequest) {
   //   },
   // };
   
-  rightResponse.cookies.set(JWT_CART, 'aaaa', {name: JWT_CART, value: 'aaaa', sameSite: 'none', secure: true});
+  rightResponse.cookies.set(JWT_CART, 'aaaa', {sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
   
   if (cartTokenCookie === undefined) {
     try {
       // rightResponse.cookies.set('before', 'before call api')
       const cartToken = await add();
-      rightResponse.cookies.set(JWT_CART, cartToken)
+      rightResponse.cookies.set(JWT_CART, cartToken, {sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY})
       wrongResponse.cookies.set(JWT_CART, cartToken)
       
       // rightResponse.cookies.set('after', 'after call api')
