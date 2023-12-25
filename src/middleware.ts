@@ -29,14 +29,16 @@ export async function middleware(request: NextRequest) {
   //   },
   // };
   
-  rightResponse.cookies.set(JWT_CART, 'aaaa', {sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
+  rightResponse.cookies.set('withName', 'aaaa', {name: JWT_CART, value: 'aaaa', sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
+  rightResponse.cookies.set('withoutName', 'aaaa', { sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
   
+
   if (cartTokenCookie === undefined) {
     try {
       // rightResponse.cookies.set('before', 'before call api')
       const cartToken = await add();
-      rightResponse.cookies.set(JWT_CART, cartToken, {sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY})
-      wrongResponse.cookies.set(JWT_CART, cartToken)
+      rightResponse.cookies.set(JWT_CART, cartToken, {name: JWT_CART, value: cartToken, sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY})
+      wrongResponse.cookies.set(JWT_CART, cartToken, {name: JWT_CART, value: cartToken, sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY})
       
       // rightResponse.cookies.set('after', 'after call api')
     } catch (error: any) {
