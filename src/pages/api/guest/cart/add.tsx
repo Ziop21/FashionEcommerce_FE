@@ -18,7 +18,6 @@ const add = async () => {
     }
     return data.cartToken;
   } catch (error: any) {
-    cookies().set('fetch', error)
     console.error("error", error);
     throw error;
   }
