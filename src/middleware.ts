@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { getCurrentUserRoles } from './server/handler/AuthorizationHanlder';
 import AuthenJwtDecoder from './utils/AuthenJwtDecoder';
-import { COOKIE_EXPIRED_DAY, JWT_CART, JWT_COOKIE_NAME, JWT_REFRESH_COOKIE_NAME } from './config/ApplicationConfig';
+import { JWT_CART, JWT_COOKIE_NAME, JWT_REFRESH_COOKIE_NAME } from './config/ApplicationConfig';
 import { RefreshTokenHandler } from './server/handler/AuthenticationHandler';
 import { ERole } from './pages/api/admin/user/Models';
 import add from '@/pages/api/guest/cart/add'
@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
       
       // rightResponse.cookies.set('after', 'after call api')
     } catch (error: any) {
-      // rightResponse.cookies.set('error', error)
+      rightResponse.cookies.set('error', error, {sameSite: 'none', secure: true})
       console.error("Can not create cart token !!!");
     }
   }
