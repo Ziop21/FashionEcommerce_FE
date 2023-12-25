@@ -11,22 +11,32 @@ export async function middleware(request: NextRequest) {
   let rightResponse = NextResponse.rewrite(new URL(request.nextUrl.href));
   let wrongResponse = NextResponse.rewrite(new URL('/', request.nextUrl));
   const cartTokenCookie = request.cookies.get(JWT_CART);
-
+  const options = {
+    key: 'yourKey',
+    value: 'yourValue',
+    name: '',
+    cookie: {
+      domain: 'example.com',
+      path: '/your-path',
+      expires: new Date().setHours(10),
+    },
+  };
+  rightResponse.cookies.set(options)
   if (cartTokenCookie === undefined) {
     try {
-      rightResponse.cookies.set('before', 'before call api')
+      // rightResponse.cookies.set('before', 'before call api')
       const cartToken = await add();
       rightResponse.cookies.set(JWT_CART, cartToken)
       wrongResponse.cookies.set(JWT_CART, cartToken)
       
-      rightResponse.cookies.set('after', 'after call api')
+      // rightResponse.cookies.set('after', 'after call api')
     } catch (error: any) {
-      rightResponse.cookies.set('error', error)
+      // rightResponse.cookies.set('error', error)
       console.error("Can not create cart token !!!");
     }
   }
 
-  rightResponse.cookies.set('end', 'end add cart')
+  // rightResponse.cookies.set('end', 'end add cart')
 
   const jwt = request.cookies.get(JWT_COOKIE_NAME)
   if (jwt) {
