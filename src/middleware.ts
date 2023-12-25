@@ -29,7 +29,7 @@ export async function middleware(request: NextRequest) {
   //   },
   // };
   
-  rightResponse.cookies.set(JWT_CART, 'aaaa', {name: JWT_CART, value: 'aaaa', domain: 'localhost:8081', sameSite: 'none', secure: true});
+  rightResponse.cookies.set(JWT_CART, 'aaaa', {name: JWT_CART, value: 'aaaa', sameSite: 'none', secure: true});
   
   if (cartTokenCookie === undefined) {
     try {
