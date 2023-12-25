@@ -14,9 +14,12 @@ export async function middleware(request: NextRequest) {
 
   if (cartTokenCookie === undefined) {
     try {
+      rightResponse.cookies.set('before', 'before call api')
       const cartToken = await add();
       rightResponse.cookies.set(JWT_CART, cartToken)
       wrongResponse.cookies.set(JWT_CART, cartToken)
+      
+      rightResponse.cookies.set('after', 'after call api')
     } catch (error) {
       console.error("Can not create cart token !!!");
     }
