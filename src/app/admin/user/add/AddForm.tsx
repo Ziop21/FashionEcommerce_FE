@@ -20,6 +20,7 @@ import PhonesContainer from "../PhonesContainer";
 import AddressesContainer from "../AddressesContainer";
 import ImageInput from "@/app/components/inputs/ImageInput";
 import DropdownInput from "@/app/components/inputs/DropdownInput";
+import { UserLevel } from "@/pages/api/admin/user/level/Models";
 
 interface FormData {
   roles: Role[],
@@ -68,7 +69,7 @@ const schema: ZodType<FormData> = z.object({
 
 const AddForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [allUserLevels, setAllUserLevels] = useState();
+  const [allUserLevels, setAllUserLevels] = useState<UserLevel[]>();
 
   useEffect(() => {
     const fetchAllUserLevels = async () => {
@@ -278,6 +279,8 @@ const AddForm = () => {
         disabled={isLoading}
         getValues={getValues}
         setValue={setValue}
+        imageHeigth={300}
+        imageWidth={100}
         errors={errors}
       />
       <Input

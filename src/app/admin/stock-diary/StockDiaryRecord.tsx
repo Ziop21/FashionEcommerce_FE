@@ -78,8 +78,8 @@ const StockDiaryRecord: React.FC<StockDiaryProps> = ({ data, index, afterDelete 
             <div className="flex-1 ml-4">{formatDate(new Date(data.updatedAt))}</div>
             <div className="flex-1 ml-4">{createdBy}</div>
             <div className="flex-1 ml-4">{updatedBy}</div>
-            <div className={`${getYesNoColor(data.isDeleted)} flex-1 ml-4`}>{data.isDeleted ? 'Yes' : 'No'}</div>
             <div className={`${getYesNoColor(data.isActive)} flex-1 ml-4`}>{data.isActive ? 'Yes' : 'No'}</div>
+            <div className={`${getYesNoColor(data.isDeleted)} flex-1 ml-4`}>{data.isDeleted ? 'Yes' : 'No'}</div>
             <div className="flex-1 ml-4 cursor-pointer">
                 <span className="flex items-center">
                     <IoIosInformationCircle onClick={() => handleViewButtonClick(data.id)} color="blue" className="mr-1 text-lg" />

@@ -102,7 +102,7 @@ const ViewForm: FC<ViewFormProps> = ({
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     // console.log('data', data)
     let fileName: string = data.avatar;
-    let uploadFile: File;
+    let uploadFile: any;
     if (data.avatar) {
       if (data.avatar.name) {
         const fileNameWithoutExtension = data.avatar.name.split('.').slice(0, -1).join('.');

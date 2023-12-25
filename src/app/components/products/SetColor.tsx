@@ -7,7 +7,7 @@ interface SetColorProps {
     handleColorSelect: (value: Color) => void
 }
 interface Color {
-    id: string;
+    id?: string;
     name: string;
     code: string;
 }
@@ -17,7 +17,7 @@ const SetColor: React.FC<SetColorProps> = ({ colors, cartProduct, handleColorSel
     const uniqueColorIds = new Set<string>();
 
 
-    const uniqueColors = colors.filter((color) => {
+    const uniqueColors = colors.filter((color: any) => {
         if (uniqueColorIds.has(color.id)) {
             return false; 
         }

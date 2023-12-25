@@ -9,9 +9,9 @@ interface ParamProps {
   pageSize?: number;
 }
 
-const findAll = async (params: ParamProps): Promise<Size[]> => {
+const findAll = async (params: ParamProps) => {
   try {
-    const response: AxiosResponse<Size[]> = await api.get('/api/admin/manager/size', {
+    const response = await api.get('/api/admin/manager/size', {
       params: params,
     });
 

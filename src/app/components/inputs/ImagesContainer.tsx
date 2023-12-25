@@ -43,7 +43,7 @@ const ImagesContainer: React.FC<ListObjectInputProps> = ({
 }) => {
     // console.log('eeeeeeee', errors['images'] ? errors['images'][0] : '')
     const handleClearBtnClick = async () => {
-        fields.map(async (image, item) => {
+        fields.map(async (image: any, item: number) => {
             const oldFileName = Object.values(fields[item]).slice(0, -1).join('');
             if (oldFileName && Object.keys(oldFileName).length > 0) {
                 const oldImageRef = ref(storage, `${storagePath}${oldFileName}`)
@@ -84,7 +84,7 @@ const ImagesContainer: React.FC<ListObjectInputProps> = ({
                     {label}
                 </label>
                 <div className="flex flex-wrap">
-                    {fields.map((item, index) => (
+                    {fields.map((item: any, index: number) => (
                         <div key={item.id} className='w-full flex border-2 p-2 rounded'>
                             <div className='w-full'>
                                 <ImageInput
@@ -95,6 +95,8 @@ const ImagesContainer: React.FC<ListObjectInputProps> = ({
                                     getValues={getValues}
                                     setValue={setValue}
                                     errors={errors}
+                                    imageHeigth={300}
+                                    imageWidth={100}
                                     required={required}
                                 />
                             </div>

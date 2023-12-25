@@ -26,7 +26,7 @@ export async function middleware(request: NextRequest) {
   if (jwt) {
     try {
       await AuthenJwtDecoder(jwt.value);
-    } catch (error) {
+    } catch (error: any) {
       if (error.name === 'JWTExpired') {
         try {
           console.error("JWT is expired");

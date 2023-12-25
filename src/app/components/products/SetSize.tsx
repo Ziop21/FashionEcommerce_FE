@@ -9,7 +9,7 @@ interface SetSizeProps {
     handleSizeSelect: (value: Size) => void
 }
 interface Size {
-    id: string;
+    id?: string;
     name: string;
 }
 
@@ -19,20 +19,20 @@ interface Product {
     colorId: string;
     quantity: number;
     reviews: any[]; // hoặc bạn có thể xác định kiểu cho reviews nếu có
-  }
+}
 
-const SetSize: React.FC<SetSizeProps> = ({ sizes , cartProduct, handleSizeSelect }) => {
+const SetSize: React.FC<SetSizeProps> = ({ sizes, cartProduct, handleSizeSelect }) => {
 
     const [product, setProduct] = useState<Product[] | null>(null);
-    
-    console.log(cartProduct.selectedColor?.id)
+
+    // console.log(cartProduct.selectedColor?.id)
     useEffect(() => {
         const fetchData = async () => {
             const productData = await GetStockById(cartProduct.productId);
             let filteredProducts = [];
             for (let i = 0; i < productData.length; i++) {
                 if (productData[i].colorId === cartProduct.selectedColor?.id) {
-                    console.log(productData[i].colorId, 'ss')
+                    // console.log(productData[i].colorId, 'ss')
                     filteredProducts.push(productData[i]);
                 }
             }
@@ -43,23 +43,26 @@ const SetSize: React.FC<SetSizeProps> = ({ sizes , cartProduct, handleSizeSelect
         fetchData();
     }, [cartProduct.selectedColor?.id])
     const uniqueSizeIds = new Set<string>();
-    const uniqueSizes = sizes.filter((size) => {
+    const uniqueSizes = sizes.filter((size: any) => {
         if (uniqueSizeIds.has(size.id)) {
-            return false; 
+            return false;
         }
-        uniqueSizeIds.add(size.id); 
-        return true; 
+        uniqueSizeIds.add(size.id);
+        return true;
     });
 
-    function checkSizeId(sizeId : string) {
-        for (let i = 0; i < product.length; i++) {
-            if (product[i].sizeId === sizeId) {
-                return true;
+    function checkSizeId(sizeId: string) {
+        if (product) {
+            for (let i = 0; i < product.length; i++) {
+                if (product[i].sizeId === sizeId) {
+                    return true;
+                }
             }
+            return false;
         }
         return false;
     }
-    console.log(uniqueSizes)
+    // console.log(uniqueSizes)
 
 
     return (
@@ -67,34 +70,33 @@ const SetSize: React.FC<SetSizeProps> = ({ sizes , cartProduct, handleSizeSelect
             <div className="flex gap-4 items-center">
                 <span className="font-semibold">SIZE:</span>
                 <div className="flex gap-1">
-                    
-                {cartProduct.selectedColor?.id != undefined ? (
-                    uniqueSizes.map((size) => (
-                        checkSizeId(size.id) && (
-                        <div
-                            key={size.id}
-                            onClick={() => handleSizeSelect(size)}
-                            className={`h-7 w-7 rounded-full border-teal-400 
+
+                    {cartProduct.selectedColor?.id != undefined ? (
+                        uniqueSizes.map((size: any) => (
+                            checkSizeId(size.id) && (
+                                <div
+                                    key={size.id}
+                                    onClick={() => handleSizeSelect(size)}
+                                    className={`h-7 w-7 rounded-full border-teal-400 
                                 flex items-center justify-center
-                                ${
-                                cartProduct.selectedSize === size
-                                    ? 'border-[1.5px]'
-                                    : 'border-none'
-                                }
+                                ${cartProduct.selectedSize === size
+                                            ? 'border-[1.5px]'
+                                            : 'border-none'
+                                        }
                             `}
-                        >
-                            <div
-                            className={`
+                                >
+                                    <div
+                                        className={`
                                 h-5 w-5 rounded-full border-[1.2px] border-slate-400 cursor-pointer flex items-center justify-center
                             `}
-                            >
-                            {size.name}
-                            </div>
-                        </div>
-                        )
-                    ))
+                                    >
+                                        {size.name}
+                                    </div>
+                                </div>
+                            )
+                        ))
                     ) : (
-                    <div className="text-green-500">Please chose color</div>
+                        <div className="text-green-500">Please chose color</div>
                     )}
                 </div>
             </div>

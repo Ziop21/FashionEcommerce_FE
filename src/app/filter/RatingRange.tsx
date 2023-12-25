@@ -21,9 +21,11 @@ const RatingRange: React.FC<RatingRangeProps> = ({
       defaultValue={[0, 5]}
       value={selectedValue}
       onChange={(values) => {
-        setSelectedValue(values)
-        setValue('fromRating', values[0]);
-        setValue('toRating', values[1]);
+        if (Array.isArray(values)) {
+          setSelectedValue(values)
+          setValue('fromRating', values[0]);
+          setValue('toRating', values[1]);
+        }
       }}
       className="max-w-md mt-5"
     />

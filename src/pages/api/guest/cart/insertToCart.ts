@@ -7,7 +7,7 @@ export interface InsertToCartProps {
 
 const InsertToCart = async (insertToCartProps: InsertToCartProps) => {
   try {
-    await api.post(`http://localhost:8081/api/guest/cart/add/${insertToCartProps.stockId}`, {
+    await api.post(`/api/guest/cart/add/${insertToCartProps.stockId}`, {
         quantity: insertToCartProps.quantity,
     });
 

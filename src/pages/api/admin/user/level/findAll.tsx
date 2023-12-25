@@ -1,7 +1,4 @@
 import api from "@/pages/api/api";
-import { UserLevel } from "./Models";
-import { AxiosResponse } from "axios";
-
 interface ParamProps {
   search?: string;
   sort?: string;
@@ -9,9 +6,9 @@ interface ParamProps {
   pageSize?: number;
 }
 
-const findAll = async (params: ParamProps): Promise<UserLevel[]> => {
+const findAll = async (params: ParamProps) => {
   try {
-    const response: AxiosResponse<UserLevel[]> = await api.get('/api/admin/manager/user-level', {
+    const response = await api.get('/api/admin/manager/user-level', {
       params: params,
     });
 

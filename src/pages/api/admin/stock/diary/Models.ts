@@ -1,5 +1,5 @@
 export interface StockDiary {
-    id: string;
+    id?: string;
     stockId: string;
     quantity: number;
     errorQuantity: number;

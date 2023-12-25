@@ -21,6 +21,18 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
   useEffect(() => {
     setValue('categoryIds', selectedCategoryValue)
   }, [selectedCategoryValue])
+  
+  const handleSelectionChange = (keys: any) => {
+    // console.log(keys)
+    let selectedStatusesArray: string[] = []
+    if (keys){
+      keys.forEach((item: any) => {
+        // console.log('item', item)
+        selectedStatusesArray.push(item);
+      });
+    }
+    setSelectedCategories(selectedStatusesArray);
+  };
 
   return (
     <Dropdown>
@@ -34,7 +46,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
         disallowEmptySelection={false}
         selectionMode="multiple"
         selectedKeys={selectedCategories}
-        onSelectionChange={setSelectedCategories}
+        onSelectionChange={(keys) => handleSelectionChange(keys)}
         items={categories}
       >
         {(item) => (

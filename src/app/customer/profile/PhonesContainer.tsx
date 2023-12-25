@@ -56,7 +56,7 @@ const PhonesContainer: React.FC<ListObjectInputProps> = ({
                     {label}
                 </label>
                 <div className="flex flex-wrap">
-                    {fields.map((item, index) => (
+                    {fields.map((item: any, index: number) => (
                         <div key={item.id} className='w-full flex border-2 p-2 rounded'>
                             <div className='w-full'>
                                 <Input

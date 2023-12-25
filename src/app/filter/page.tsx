@@ -132,7 +132,7 @@ const Search = ({ searchParams }: { searchParams: FilterParams }) => {
     }
   };
 
-  const getAllProductIds = async (params: FormData) => {
+  const getAllProductIds = async (params: any) => {
     try {
       const response = await findAllProductIds(params);
       setProductIds(response);
@@ -298,7 +298,8 @@ const Search = ({ searchParams }: { searchParams: FilterParams }) => {
               <DropdownMenu aria-label="Dynamic Actions"
                 items={SortItem}
                 onAction={async (key) => {
-                  setSort(key);
+                  // console.log('key', key);
+                  setSort(key.toString());
                   setValue('sort', key)
                   await onSubmit({ ...getValues() });
                 }}>
@@ -313,8 +314,8 @@ const Search = ({ searchParams }: { searchParams: FilterParams }) => {
             </Dropdown>
           </div>
           <div className="w-full h-full ml-10 mr-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
-            {products.map((product: any) => {
-              return <ProductCard data={product} />;
+            {products.map((product: any, index: any) => {
+              return <ProductCard key={index} data={product} />;
             })}
           </div>
         </div>

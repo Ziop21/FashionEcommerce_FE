@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import verifyEmailToken from "@/pages/api/guest/auth/register/verifyEmailToken";
 import toast from "react-hot-toast";
 
-const verify = (token: string) => {
+const Verify = (token: any) => {
     const router = useRouter();
     
     useEffect(() => {
@@ -28,4 +28,4 @@ const verify = (token: string) => {
     
 }
  
-export default verify;
+export default Verify;

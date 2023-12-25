@@ -93,7 +93,7 @@ const AddForm = () => {
         errors={errors}
         options={
           allCategories ?
-            allCategories.map(cate => ({
+            allCategories.map((cate: any) => ({
               value: cate.id,
               label: cate.name,
             })) : []
@@ -108,7 +108,7 @@ const AddForm = () => {
         errors={errors}
         options={
           allProducts ?
-          allProducts.map(prod => ({
+          allProducts.map((prod: any) => ({
               value: prod.id,
               label: prod.name,
             })) : []

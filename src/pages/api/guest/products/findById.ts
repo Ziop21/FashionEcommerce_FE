@@ -1,18 +1,8 @@
-import axios from "axios";
+import api from "../../api";
 
-interface ProductId {
-  id: string;
-}
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-}
-
-const findById = async (id: string): Promise<Product> => {
+const findById = async (id: string) => {
   try {
-    const response = await axios.get("http://localhost:8081/api/guest/product/" + id);
+    const response = await api.get("/api/guest/product/" + id);
     return response.data ;
   } catch (error) {
     console.error("Error in getting data!!! ", error);

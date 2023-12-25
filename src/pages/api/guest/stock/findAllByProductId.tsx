@@ -1,5 +1,4 @@
-import axios from "axios";
-import { Stock } from "./Models";
+import api from "../../api";
 
 interface RequestParam {
     search?: string;
@@ -13,9 +12,9 @@ interface ParamProps {
     requestParam: RequestParam;
 }
 
-const findAllByProductId = async (params: ParamProps): Promise<Stock[]> => {
+const findAllByProductId = async (params: ParamProps) => {
     try {
-        const response = await axios.get("http://localhost:8081/api/guest/stock/product/" + params.productId, {
+        const response = await api.get("/api/guest/stock/product/" + params.productId, {
             params: params.requestParam
         });
         return response.data;

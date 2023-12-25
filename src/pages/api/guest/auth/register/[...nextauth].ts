@@ -1,27 +1,15 @@
 
-import axios from 'axios';
-import { API_BACKEND_URL } from '@/config/ApplicationConfig';
+import api from '@/pages/api/api';
 
 export interface RegisterProps {
   email: string;
   password: string;      
   confirmPassword: string;
-  firstName: string,
-  lastName: string,
-  phone: string,
-  address: string,
+  firstName?: string,
+  lastName?: string,
+  phone?: string,
+  address?: string,
 }
-
-const API_BASE_URL = API_BACKEND_URL
-
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
-});
-
 
 const Register = async (registerData: RegisterProps) => {
   try {

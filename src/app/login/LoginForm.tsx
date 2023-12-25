@@ -18,11 +18,16 @@ const LoginForm = () => {
 
     const router = useRouter();
 
+    if (typeof window !== 'undefined') {
+  // Perform localStorage action
+  const item = localStorage.getItem('key')
+}
+
     const [isLoading, setIsLoading ] = useState(false);
     const {register, handleSubmit, formState : {errors}} = 
     useForm<FieldValues>({
         defaultValues: {
-        email: localStorage.getItem("FE_UserEmail") ?? "",
+        email: typeof window !== 'undefined' ? localStorage.getItem("FE_UserEmail") : "",
         password: "",
     }
     })

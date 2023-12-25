@@ -22,6 +22,18 @@ const SizeFilter: React.FC<SizeFilterProps> = ({
     setValue('sizeIds', selectedSizeValue)
   }, [selectedSizeValue])
 
+  const handleSelectionChange = (keys: any) => {
+    // console.log(keys)
+    let selectedStatusesArray: string[] = []
+    if (keys){
+      keys.forEach((item: any) => {
+        // console.log('item', item)
+        selectedStatusesArray.push(item);
+      });
+    }
+    setSelectedSizes(selectedStatusesArray);
+  };
+
   return (
     <Dropdown>
       <DropdownTrigger>
@@ -34,11 +46,11 @@ const SizeFilter: React.FC<SizeFilterProps> = ({
         disallowEmptySelection={false}
         selectionMode="multiple"
         selectedKeys={selectedSizes}
-        onSelectionChange={setSelectedSizes}
+        onSelectionChange={(keys) => handleSelectionChange(keys)}
         items={sizes}
       >
         {(item) => (
-          <DropdownItem key={item.id} className={`${item.categoryIds?.length !== 0 ? 'pl-5' : ''}`}>
+          <DropdownItem key={item.id}>
             {item.name}
           </DropdownItem>
         )}

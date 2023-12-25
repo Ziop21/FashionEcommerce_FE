@@ -13,6 +13,7 @@ import Paging from "@/app/components/Paging";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import StatusFilter from "./StatusFilter";
 import { EOrderStatus } from "@/pages/api/customer/order/Models";
+import Heading from "@/app/components/Heading";
 
 const ManageOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -85,13 +86,19 @@ const ManageOrders = () => {
               onChange={handleStatusesChange}
             />
             <OrderHeader />
-            {orders.map((order: any, index: number) => (
-              <OrderRecord
-                afterDelete={fetchData}
-                key={order.id}
-                data={order}
-                index={index + 1} />
-            ))}
+            {orders && orders[0] ?
+              orders.map((order: any, index: number) => (
+                <OrderRecord
+                  afterDelete={fetchData}
+                  key={order.id}
+                  data={order}
+                  index={index + 1} />
+              ))
+              : (<div className="mt-4">
+                <Heading title="You don't have any order" center />
+              </div>
+              )
+            }
             <Paging
               pageSize={pageSize}
               currentPage={currentPage}

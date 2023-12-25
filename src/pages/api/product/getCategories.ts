@@ -3,10 +3,10 @@ import api from "../api";
 
 const GetCategoryName = async (productId: string) => {
   try {
-    const response = await api.get('http://localhost:8081/api/guest/category/product/' + productId, {
+    const response = await api.get('/api/guest/category/product/' + productId, {
     });
-    const categoryNames = Promise.all(response.data.items.map(async (item) => {
-      const response2 = await api.get('http://localhost:8081/api/guest/category/' + item.categoryId);
+    const categoryNames = Promise.all(response.data.items.map(async (item: any) => {
+      const response2 = await api.get('/api/guest/category/' + item.categoryId);
       return response2.data.name;
     }))
     

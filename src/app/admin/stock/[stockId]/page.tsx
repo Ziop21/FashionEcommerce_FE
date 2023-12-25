@@ -50,6 +50,8 @@ const View = ({ params }: { params: IPrams }) => {
 
 
   return (
+    foundStock
+    ?
     <div>
       <Container>
         <FormWrap>
@@ -62,6 +64,8 @@ const View = ({ params }: { params: IPrams }) => {
         </FormWrap>
       </Container>
     </div>
+    :
+    <div>Loading</div>
   );
 }
 

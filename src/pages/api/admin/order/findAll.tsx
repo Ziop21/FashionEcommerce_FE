@@ -1,12 +1,12 @@
-import { EOrderStatus, Order } from "./Models";
-import { AxiosResponse } from "axios";
+import { EOrderStatus } from "./Models";
+
 
 import api from "@/pages/api/api";
 
 interface ParamProps {
   search?: string;
-  deliveryIds?: string[];
-  statuses?: EOrderStatus[];
+  deliveryIds?: string;
+  statuses?: string;
   isPaidBefore?: boolean;
   fromDate?: Date;
   toDate?: Date;
@@ -15,9 +15,9 @@ interface ParamProps {
   pageSize?: number;
 }
 
-const findAll = async (params: ParamProps): Promise<Order[]> => {
+const findAll = async (params: ParamProps) => {
   try {
-    const response: AxiosResponse<Order[]> = await api.get('/api/admin/manager/order', {
+    const response = await api.get('/api/admin/manager/order', {
       params: params,
     });
     return response.data;

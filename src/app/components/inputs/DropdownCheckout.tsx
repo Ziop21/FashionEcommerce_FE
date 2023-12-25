@@ -42,9 +42,9 @@ const DropdownCheckout: React.FC<DropdownCheckoutProps> = ({placeholder, type, c
         size="sm"
         label=""
         variant="flat"
-        hoverable="false"
+        // hoverable="false"
         placeholder={placeholder}
-        defaultItems= {(type == "province") ? City : ((type == "district") ? Districts : Wards) } 
+        defaultItems = {(type == "province") ? City : ((type == "district") ? Districts : Wards) } 
         className="peer w-[89%] h-[80%] font-light items-center
          rounded-md transition"
         scrollShadowProps={{
@@ -53,7 +53,7 @@ const DropdownCheckout: React.FC<DropdownCheckoutProps> = ({placeholder, type, c
         onSelectionChange={(key) => onSelectionChange(key)}
 
       >
-        {(item) => <AutocompleteItem className="text-sm bg-slate-200 gap-0 " 
+        {(item: any) => <AutocompleteItem className="text-sm bg-slate-200 gap-0 " 
         key={item.code}
         >{item.name}
         </AutocompleteItem>}

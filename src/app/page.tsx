@@ -34,8 +34,8 @@ useEffect(() => {
       <div>
         <span className="text-2xl font-bold">MOST VIEW PRODUCTS</span>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
-          {mostViewestProducts.map((product: any) => {
-            return <ProductCard data={product}/>;
+          {mostViewestProducts.map((product: any, index: number) => {
+            return <ProductCard key={index} data={product}/>;
             })}
         </div>
       </div>

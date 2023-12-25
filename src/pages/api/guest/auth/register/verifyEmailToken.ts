@@ -1,17 +1,7 @@
-import axios from "axios";
-import { API_BACKEND_URL } from "@/config/ApplicationConfig";
-
-const API_BASE_URL = API_BACKEND_URL;
+import api from "@/pages/api/api";
 
 const verifyEmailToken =  async (token: string) => {
-  try {
-    const api = axios.create({
-      baseURL: API_BASE_URL,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true,
-    });
+  try { 
     const response = await api.post('/api/guest/auth/register/verify?token=' + token);
     console.log(response.data)
     return response.data;

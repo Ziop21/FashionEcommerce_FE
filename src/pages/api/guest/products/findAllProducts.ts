@@ -18,7 +18,7 @@ interface Product {
   name: string;
   price: number;
 }
-const getAllProduct = async (params: ParamProps): Promise<Product[]> => {
+const getAllProduct = async (params: ParamProps) => {
   try {
     const response = await api.get("/api/guest/product", {
       params: params,

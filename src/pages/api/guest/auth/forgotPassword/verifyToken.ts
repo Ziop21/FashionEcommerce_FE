@@ -1,18 +1,9 @@
 import axios from "axios";
-import { API_BACKEND_URL } from "@/config/ApplicationConfig";
 import { RegisterProps } from "../register/[...nextauth]";
-
-const API_BASE_URL = API_BACKEND_URL;
+import api from "@/pages/api/api";
 
 const verifyToken =  async (token: string, registerData: RegisterProps) => {
   try {
-    const api = axios.create({
-      baseURL: API_BASE_URL,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true,
-    });
     const response = await api.post('/api/guest/auth/forgot-password/verify?token=' + token, {
         email: registerData.email,
         password: registerData.password,

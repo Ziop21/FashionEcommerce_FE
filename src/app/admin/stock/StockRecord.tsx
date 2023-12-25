@@ -28,7 +28,7 @@ const StockRecord: React.FC<StockProps> = ({ data, index, afterDelete }) => {
     };
     const [productName, setProductName] = useState<string>('');
     const [sizeName, setSizeName] = useState<string>('');
-    const [color, setColor] = useState();
+    const [color, setColor] = useState<any>();
     const [createdBy, setCreatedBy] = useState<string>('');
     const [updatedBy, setUpdatedBy] = useState<string>('');
 

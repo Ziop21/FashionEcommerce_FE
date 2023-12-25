@@ -30,9 +30,9 @@ const ProductImage: React.FC<ProductImageProps> = ({ product }) => {
    return (
       <div className="grid grid-cols-6 gap-2 h-full max-h-[500px] min-h-[300px] sm:min-h-[400px]">
          <div className="flex flex-col items-center justify-center gap-4 cursor-pointer border h-full max-h-[500px] min-h-[300px] sm:min-h-[400px]">
-            {imageUrls.map((img) => {
+            {imageUrls.map((img: any, index: number) => {
                return (
-                  <div className={`relative w-[80%] aspect-square rounded border-teal-300`} >
+                  <div key={index} className={`relative w-[80%] aspect-square rounded border-teal-300`} >
                      <Image
                         src={img}
                         alt="image conten"

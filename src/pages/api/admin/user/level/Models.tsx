@@ -1,5 +1,5 @@
 export interface UserLevel {
-    id: string;
+    id?: string;
     name: string;
     description: string;
     minPoint: number;

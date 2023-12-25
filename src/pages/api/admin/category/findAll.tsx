@@ -1,6 +1,4 @@
 import api from "@/pages/api/api";
-import {Category} from "@/pages/api/admin/category/Models"
-import { AxiosResponse } from "axios";
 
 interface ParamProps {
   search?: string;
@@ -9,9 +7,9 @@ interface ParamProps {
   pageSize?: number;
 }
 
-const findAll = async (params: ParamProps): Promise<Category[]> => {
+const findAll = async (params: ParamProps)=> {
   try {
-    const response: AxiosResponse<Category[]> = await api.get('/api/admin/manager/category', {
+    const response = await api.get('/api/admin/manager/category', {
       params: params,
     });
 

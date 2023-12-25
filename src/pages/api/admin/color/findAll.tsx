@@ -1,6 +1,4 @@
 import api from "@/pages/api/api";
-import { Color } from "@/pages/api/admin/color/Models";
-import { AxiosResponse } from "axios";
 
 interface ParamProps {
   search?: string;
@@ -9,9 +7,9 @@ interface ParamProps {
   pageSize?: number;
 }
 
-const findAll = async (params: ParamProps): Promise<Color[]> => {
+const findAll = async (params: ParamProps) => {
   try {
-    const response: AxiosResponse<Color[]> = await api.get('/api/admin/manager/color', {
+    const response = await api.get('/api/admin/manager/color', {
       params: params,
     });
     return response.data;

@@ -40,14 +40,14 @@ interface Product {
 const Product = ({ params }: {params: IPrams}) => {
 
     console.log(params.productId);
-    const [products, setProducts] = useState<Product[] | null>(null);
+    const [product, setProduct] = useState<Product>();
 
     useEffect(() => {
     const fetchData = async () => {
         try {
         const result = await findById(params.productId);
         console.log(result)
-        setProducts(result);
+        setProduct(result);
         } catch (error) {
         console.error("Error fetching data:", error);
         }
@@ -55,18 +55,21 @@ const Product = ({ params }: {params: IPrams}) => {
     fetchData();
     }, []);
 
-    console.log(products)
-
+    // console.log(product)
+    
     return ( 
+        product ?
         <div className="p-8">
             <Container>
-                <ProductDetails product = {products}/>
+                <ProductDetails product = {product}/>
                 <div className="flex flex-col mt-20 gap-4">
                     {/* <div>Add Rating</div> */}
-                    <ListRating product={products}/>
+                    <ListRating product={product}/>
                 </div>
             </Container>
         </div>
+        :
+        <div>Loading</div>
      );
 }
  

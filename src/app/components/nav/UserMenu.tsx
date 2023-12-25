@@ -12,8 +12,6 @@ import { useRouter } from "next/navigation";
 import { getCurrentUserRoles } from "@/server/handler/AuthorizationHanlder";
 import Cookies from 'js-cookie';
 import { JWT_COOKIE_NAME, JWT_REFRESH_COOKIE_NAME } from "@/config/ApplicationConfig";
-import AuthenJwtDecoder from "@/utils/AuthenJwtDecoder";
-import { verifyExpirationJwt } from "@/server/handler/AuthenticationHandler";
 
 const UserMenu = () => {
     const router = useRouter();

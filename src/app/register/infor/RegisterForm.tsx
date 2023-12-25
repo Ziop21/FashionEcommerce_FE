@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 import DropdownCheckout from "@/app/components/inputs/DropdownCheckout";
 
 type FormData = {
-    email: string;
+    email: string | null;
     password: string;
     confirmPassword: string;
     firstName: string;
@@ -47,7 +47,7 @@ const RegisterForm = () => {
         useForm<FormData>({
             resolver: zodResolver(schema),
             defaultValues: {
-                email: localStorage.getItem('FE_UserEmail') ?? '',
+                email: typeof window !== 'undefined' ? localStorage.getItem("FE_UserEmail") : "",
             }
         });
 
@@ -55,7 +55,7 @@ const RegisterForm = () => {
         // console.log('data', data)
         setIsLoading(true);
         const registerData: RegisterProps = {
-            email: data.email,
+            email: data.email ?? '',
             password: data.password,
             confirmPassword: data.confirmPassword,
             firstName: data.firstName,

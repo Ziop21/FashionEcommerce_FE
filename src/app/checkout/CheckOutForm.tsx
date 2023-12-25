@@ -19,7 +19,7 @@ import CheckOut from "@/pages/api/checkOut/checkOut";
 import GetStockId from "@/pages/api/stock/getStock";
 import Cookies from "js-cookie";
 import { JWT_CART } from "@/config/ApplicationConfig";
-import AddCartItems from "@/pages/api/guest/cart/addCartItems";
+import AddCartItems, { cartItem } from "@/pages/api/guest/cart/addCartItems";
 
 const Horizontal = () => {
   return <hr className="w-[30%] my-2" />
@@ -48,7 +48,7 @@ const CheckOutForm = () => {
   const [city, setCity] = useState<string>('');
   const [district, setDistrict] = useState<string>('');
   const [ward, setWard] = useState<string>('');
-  const [shippingCost, setShippingCost] = useState<number | undefined>();;
+  const [shippingCost, setShippingCost] = useState<number[] | undefined>();;
   const [shippingCostNew, setShippingCostNew] = useState<number | undefined>();;
   const [selectedOption, setSelectedOption] = useState('');
   const [checkoutReq, setCheckoutReq] = useState<CheckOutReq>({
@@ -71,13 +71,16 @@ const CheckOutForm = () => {
     const fetchData = async () => {
       try {
         let totalQuantity = 0;
-        for (let i = 0; i < cartProducts?.length; i++) {
-          totalQuantity += cartProducts[i].quantity;
+        if (cartProducts) {
+          for (let i = 0; i < cartProducts?.length; i++) {
+            totalQuantity += cartProducts[i].quantity;
+          }
+          // console.log(totalQuantity)
+          const result = await getShippingCost({ des: shippingAddress, num: totalQuantity });
+          setShippingCost(result);
+          setShippingCostNew(result[2]);
+          console.log('result', result)
         }
-        console.log(totalQuantity)
-        const result = await getShippingCost({ des: shippingAddress, num: totalQuantity });
-        setShippingCost(result);
-        setShippingCostNew(result[2]);
       } catch (error) {
         console.error('Error fetching shipping cost data:', error);
       }
@@ -169,16 +172,21 @@ const CheckOutForm = () => {
   const onCheckOut: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     try {
-      const cartItems = await Promise.all(
-        cartProducts.map(async (item) => {
-          console.log(item)
-          const response2 = await GetStockId(item.productId, item.selectedColor.id, item.selectedSize.id);
-          console.log(response2)
-          return { stockId: response2.data.id, quantity: item.quantity };
-        })
-      )
-
-      // console.log('cartItems', cartItems);
+      toast.loading("Loading...", { duration: 3000 });
+      let cartItems: cartItem[] = []
+      if (cartProducts) {
+        cartItems = await Promise.all(
+          cartProducts.map(async (item: any) => {
+            console.log(item)
+            const response2 = await GetStockId(item.productId, item.selectedColor.id, item.selectedSize.id);
+            console.log(response2)
+            return { stockId: response2.data.id, quantity: item.quantity };
+          })
+        )
+      }
+      else
+        cartItems = [];
+      console.log('checkoutReq', checkoutReq);
       await AddCartItems({ cartItems: cartItems })
       const response = await CheckOut(checkoutReq);
 
@@ -267,7 +275,7 @@ const CheckOutForm = () => {
             <Horizontal />
             {(code.city != 0 && code.districts != 0 && code.ward != 0) && (
               <div className="">
-                <RadioGroup onChange={(e) => handleOptionChange(e.target.value)} defaultValue="657b2186265d31183b317851"> 
+                <RadioGroup onChange={(e) => handleOptionChange(e.target.value)}>
                   <CustomList description="In 1-2 days" value="657b216c265d31183b317850">
                     Fast delivery
                   </CustomList>
@@ -282,7 +290,7 @@ const CheckOutForm = () => {
             )}
             <div className="flex text-bold font-semibold text-xl text-slate-700 h-12 text-left items-center justify-left p-2">Thanh toán</div>
             <Horizontal />
-            <RadioGroup onChange={(e) => handleOptionPayChange(e.target.value)} defaultValue="655b76299fca802eadab1825">
+            <RadioGroup onChange={(e) => handleOptionPayChange(e.target.value)} >
               {/* <CustomList
                             description=""
                             value="3"
@@ -320,7 +328,7 @@ const CheckOutForm = () => {
             </div>
             <div className="flex ml-2 p-1">
               <div className="flex-grow">Shipping fee :</div>
-              <div className="ml-auto mr-5">{formatPrice(shippingCostNew)}</div>
+              <div className="ml-auto mr-5">{shippingCostNew ? formatPrice(shippingCostNew) : ''}</div>
             </div>
             <div className="flex ml-2 p-1">
               <div className="flex-grow">Tax ( consumption tax 10% ):</div>

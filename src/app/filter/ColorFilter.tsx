@@ -22,6 +22,18 @@ const ColorFilter: React.FC<ColorFilterProps> = ({
     setValue('colorIds', selectedColorValue)
   }, [selectedColorValue])
 
+  const handleSelectionChange = (keys: any) => {
+    // console.log(keys)
+    let selectedStatusesArray: string[] = []
+    if (keys){
+      keys.forEach((item: any) => {
+        // console.log('item', item)
+        selectedStatusesArray.push(item);
+      });
+    }
+    setSelectedColors(selectedStatusesArray);
+  };
+
   return (
     <Dropdown>
       <DropdownTrigger>
@@ -34,11 +46,11 @@ const ColorFilter: React.FC<ColorFilterProps> = ({
         disallowEmptySelection={false}
         selectionMode="multiple"
         selectedKeys={selectedColors}
-        onSelectionChange={setSelectedColors}
+        onSelectionChange={(keys) => handleSelectionChange(keys)}
         items={colors}
       >
         {(item) => (
-          <DropdownItem key={item.id} className={`${item.categoryIds?.length !== 0 ? 'pl-5' : ''}`}>
+          <DropdownItem key={item.id}>
             {item.name}
           </DropdownItem>
         )}

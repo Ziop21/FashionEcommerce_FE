@@ -19,8 +19,8 @@ interface ListObjectInputProps {
   allOrders: Order[];
   register: UseFormRegister<any>;
   errors: FieldErrors;
-  getValues?: UseFormGetValues<any>;
-  setValue?: UseFormSetValue<any>;
+  getValues: UseFormGetValues<any>;
+  setValue: UseFormSetValue<any>;
   reset?: UseFormReset<any>;
   control?: any;
   fields: any;
@@ -58,7 +58,7 @@ const ReviewsContainer: React.FC<ListObjectInputProps> = ({
           {label}
         </label>
         <div className="flex flex-wrap">
-          {fields.map((item, index) => (
+          {fields.map((item: any, index: number) => (
             <div key={item.id} className='flex border-2 p-2 rounded'>
               <div className='w-full'>
                 <DropdownInput
@@ -67,12 +67,13 @@ const ReviewsContainer: React.FC<ListObjectInputProps> = ({
                   disabled={disabled}
                   register={register}
                   errors={errors}
-                  options={
-                    allOrders ? allOrders.map(order => ({
-                      value: order.id,
-                      label: order.id,
-                    })) : []
-                  }
+                  options={[]}
+                  // options={
+                  //   allOrders ? allOrders.map(order => ({
+                  //     value: order.id,
+                  //     label: order.id,
+                  //   })) : []
+                  // }
                   required
                 />
               </div>
@@ -99,9 +100,9 @@ const ReviewsContainer: React.FC<ListObjectInputProps> = ({
                   getValues={getValues}
                   setValue={setValue}
                   errors={errors}
-                  fields={imageFields}
-                  append={imageAppend}
-                  remove={imageRemove}
+                  fields={fields}
+                  append={append}
+                  remove={remove}
                 />
               </div>
               <div className='w-20 ml-2'>

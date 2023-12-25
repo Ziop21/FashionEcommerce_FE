@@ -1,15 +1,12 @@
-import { Follow } from "./Models";
-import { AxiosResponse } from "axios";
-
 import api from "@/pages/api/api";
 
 interface ParamProps {
   search?: string;
 }
 
-const findAll = async (params: ParamProps): Promise<Follow[]> => {
+const findAll = async (params: ParamProps) => {
   try {
-    const response: AxiosResponse<Follow[]> = await api.get('/api/customer/follow', {
+    const response= await api.get('/api/customer/follow', {
       params: params,
     });
     return response.data;

@@ -32,7 +32,7 @@ const ImageInput: React.FC<ImageInputProps> = ({
 }) => {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-    const setImageFromRef = async (ref) => {
+    const setImageFromRef = async (ref: any) => {
         const url = await getDownloadURL(ref);
         setImageUrl(url);
     }
@@ -52,7 +52,7 @@ const ImageInput: React.FC<ImageInputProps> = ({
     }, [getValues(id)]);
 
 
-    const handleFileChange = async (event) => {
+    const handleFileChange = async (event: any) => {
         const deleteOldImage = async () => {
             try {
                 const oldFileName = getValues(id);

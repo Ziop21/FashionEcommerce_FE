@@ -1,6 +1,4 @@
 import api from "@/pages/api/api";
-import { AxiosResponse } from "axios";
-import { User } from "next-auth";
 
 interface ParamProps {
   search?: string;
@@ -15,9 +13,9 @@ interface ParamProps {
   pageSize?: number;
 }
 
-const findAll = async (params: ParamProps): Promise<User[]> => {
+const findAll = async (params: ParamProps) => {
   try {
-    const response: AxiosResponse<User[]> = await api.get('/api/admin/manager/user', {
+    const response = await api.get('/api/admin/manager/user', {
       params: params,
     });
 

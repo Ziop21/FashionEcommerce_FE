@@ -1,5 +1,4 @@
 import { API_BACKEND_URL } from "@/config/ApplicationConfig";
-import api from "@/pages/api/api";
 import { cookies } from "next/headers";
 
 const add = async () => {

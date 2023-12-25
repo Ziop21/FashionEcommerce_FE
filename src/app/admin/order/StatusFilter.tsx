@@ -2,7 +2,6 @@ import { EOrderStatus } from "@/pages/api/admin/order/Models";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import React from "react";
 import { useEffect, useState } from "react";
-import { UseFormSetValue } from "react-hook-form";
 
 interface StatusFilterProps {
   onChange: (statuses: EOrderStatus[]) => void;
@@ -26,6 +25,18 @@ const StatusFilter: React.FC<StatusFilterProps> = ({
 
   const Statuses = Object.values(EOrderStatus).map(status => ({ key: status, label: status }));
 
+  const handleSelectionChange = (keys: any) => {
+    // console.log(keys)
+    let selectedStatusesArray: EOrderStatus[] = []
+    if (keys){
+      keys.forEach((item: any) => {
+        // console.log('item', item)
+        selectedStatusesArray.push(item);
+      });
+    }
+    setSelectedStatuses(selectedStatusesArray);
+  };
+
   return (
     <Dropdown>
       <DropdownTrigger>
@@ -38,7 +49,7 @@ const StatusFilter: React.FC<StatusFilterProps> = ({
         disallowEmptySelection={false}
         selectionMode="multiple"
         selectedKeys={selectedStatuses}
-        onSelectionChange={setSelectedStatuses}
+        onSelectionChange={(keys) => handleSelectionChange(keys)}
         items={Statuses}
       >
         {(item) => (

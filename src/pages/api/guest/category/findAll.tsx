@@ -1,6 +1,4 @@
-import axios from "axios";
-import { Category } from "./Models";
-
+import api from "../../api";
 
 interface ParamProps {
   search?: string;
@@ -9,9 +7,9 @@ interface ParamProps {
   pageSize?: number;
 }
 
-const findAll = async (params: ParamProps): Promise<Category[]> => {
+const findAll = async (params: ParamProps) => {
   try {
-    const response = await axios.get("http://localhost:8081/api/guest/category", {params: params
+    const response = await api.get("/api/guest/category", {params: params
   });
     return response.data;
     

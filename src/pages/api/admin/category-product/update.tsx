@@ -1,7 +1,7 @@
 import api from "@/pages/api/api";
 import { CategoryProduct } from "./Models";
 
-const update = async (id: string, categoryProducts: CategoryProduct) => {
+const update = async (id: string | undefined, categoryProducts: CategoryProduct) => {
   try {
     const response = await api.put('/api/admin/manager/category-product/' + id, categoryProducts);
     return response;    

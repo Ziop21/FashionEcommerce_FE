@@ -1,6 +1,3 @@
-import { Product } from "./Models";
-import { AxiosResponse } from "axios";
-
 import api from "@/pages/api/api";
 
 interface ParamProps {
@@ -10,9 +7,9 @@ interface ParamProps {
   pageSize?: number;
 }
 
-const findAll = async (params: ParamProps): Promise<Product[]> => {
+const findAll = async (params: ParamProps) => {
   try {
-    const response: AxiosResponse<Product[]> = await api.get('/api/admin/manager/product', {
+    const response = await api.get('/api/admin/manager/product', {
       params: params,
     });
     return response.data;

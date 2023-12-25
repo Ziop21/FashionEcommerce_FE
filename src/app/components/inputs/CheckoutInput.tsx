@@ -24,7 +24,7 @@ const CheckoutInput: React.FC<CheckoutInputProps> = ({
   onChange,
 }) => {
     const isCheckbox = type === 'checkbox';
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: any) => {
       if (onChange) {
         onChange(e.target.value);
       }

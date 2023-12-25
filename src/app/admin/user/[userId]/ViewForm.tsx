@@ -23,6 +23,7 @@ import AddressesContainer from "../AddressesContainer";
 import PhonesContainer from "../PhonesContainer";
 import RolesContainer from "../RolesContainer";
 import DropdownInput from "@/app/components/inputs/DropdownInput";
+import { UserLevel } from "@/pages/api/admin/user/level/Models";
 
 interface ViewFormProps {
   foundUser?: User;
@@ -78,7 +79,7 @@ const schema: ZodType<FormData> = z.object({
 });
 const ViewForm = (props: ViewFormProps) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [allUserLevels, setAllUserLevels] = useState();
+  const [allUserLevels, setAllUserLevels] = useState<UserLevel[]>();
   const [oldAvatar, setOldAvatar] = useState<string | undefined>(undefined)
 
   const [changePassword, setChangePassword] = useState(false);

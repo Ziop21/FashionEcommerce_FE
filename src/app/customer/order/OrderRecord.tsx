@@ -4,6 +4,7 @@ import { formatDate } from "@/utils/DateFormatter";
 import { getYesNoColor } from "@/utils/getYesNoColor";
 import { IoIosInformationCircle } from "react-icons/io";
 import { useEffect, useState } from "react";
+import { OrderItem } from "@/pages/api/customer/order/Models";
 
 interface OrderProps {
     data: any;
@@ -19,7 +20,7 @@ const OrderRecord: React.FC<OrderProps> = ({ data, index, afterDelete }) => {
 
     useEffect(() => {
         let tempTotal = 0;
-        data.orderItems.map((item) => {
+        data.orderItems.map((item: OrderItem) => {
             tempTotal = tempTotal + item.price * item.quantity;
         });
         setTotal(tempTotal);
@@ -48,8 +49,8 @@ const OrderRecord: React.FC<OrderProps> = ({ data, index, afterDelete }) => {
                 {viewDetail &&
                     <div>
                         {
-                            data.orderItems.map((item) => (
-                                <div className="flex flex-row border-[1.2px] border-slate-200 rounded-1xl bg-slate-300">
+                            data.orderItems.map((item: any, index: number) => (
+                                <div key={index} className="flex flex-row border-[1.2px] border-slate-200 rounded-1xl bg-slate-300">
                                     <div className="flex flex-col w-1/3 p-4">
                                         <span className="cursor-pointer text-blue-500" onClick={() => router.push(`/product/${item.productId}`)}>{`Product name: ${item.productName}`}</span>
                                         <span>{`Size: ${item.sizeName}`}</span>

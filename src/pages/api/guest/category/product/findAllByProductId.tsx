@@ -1,3 +1,4 @@
+import api from "@/pages/api/api";
 import axios from "axios";
 
 interface RequestParam {
@@ -12,9 +13,9 @@ interface ParamProps {
     requestParam: RequestParam;
 }
 
-const findAllByProductId = async (params: ParamProps): Promise<CategoryProduct[]> => {
+const findAllByProductId = async (params: ParamProps) => {
     try {
-        const response = await axios.get("http://localhost:8081/api/guest/category/product/" + params.productId, {
+        const response = await api.get("/api/guest/category/product/" + params.productId, {
             params: params.requestParam
         });
         return response.data;

@@ -17,7 +17,7 @@ export enum EOrderStatus {
 
 export interface Order {
     id?: string;
-    userId: string;
+    userId?: string | null | undefined;
     username: string;
     address: string;
     phone: string;

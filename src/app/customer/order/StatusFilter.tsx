@@ -24,6 +24,18 @@ const StatusFilter: React.FC<StatusFilterProps> = ({
     setSelectedStatuses(Object.values(EOrderStatus));
   }, [])
 
+  const handleSelectionChange = (keys: any) => {
+    // console.log(keys)
+    let selectedStatusesArray: EOrderStatus[] = []
+    if (keys){
+      keys.forEach((item: any) => {
+        // console.log('item', item)
+        selectedStatusesArray.push(item);
+      });
+    }
+    setSelectedStatuses(selectedStatusesArray);
+  };
+
   const Statuses = Object.values(EOrderStatus).map(status => ({ key: status, label: status }));
 
   return (
@@ -38,7 +50,7 @@ const StatusFilter: React.FC<StatusFilterProps> = ({
         disallowEmptySelection={false}
         selectionMode="multiple"
         selectedKeys={selectedStatuses}
-        onSelectionChange={setSelectedStatuses}
+        onSelectionChange={(keys) => handleSelectionChange(keys)}
         items={Statuses}
       >
         {(item) => (

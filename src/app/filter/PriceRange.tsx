@@ -21,9 +21,12 @@ const PriceRange: React.FC<PriceRangeProps> = ({
       defaultValue={[0, 3000000]}
       value={selectedValue}
       onChange={(values) => {
-        setSelectedValue(values)
-        setValue('fromPrice', values[0]);
-        setValue('toPrice', values[1]);
+        // console.log('values', values)
+        if (Array.isArray(values)){
+          setSelectedValue(values)
+          setValue('fromPrice', values[0]);
+          setValue('toPrice', values[1]);
+        }
       }}
       formatOptions={{ style: "currency", currency: "VND" }}
       className="max-w-md mt-5"

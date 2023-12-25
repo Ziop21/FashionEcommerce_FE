@@ -1,9 +1,8 @@
-import axios from "axios";
 import api from "../api";
 
 const GetStockId = async (productId: string, colorId: string, sizeId: string) => {
   try {
-    const response = await axios.get('http://localhost:8081/api/guest/stock', {
+    const response = await api.get('/api/guest/stock', {
       params: {
         productId,
         colorId,

@@ -48,7 +48,7 @@ const PhonesContainer: React.FC<ListObjectInputProps> = ({
           {label}
         </label>
         <div className="flex flex-wrap">
-          {fields.map((item, index) => {
+          {fields.map((item: any, index:number) => {
             console.log(`${id}.${index}`);
             return (
               <div key={item.id} className='flex border-2 p-2 rounded'>

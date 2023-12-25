@@ -3,20 +3,19 @@ import { useEffect, useState } from "react";
 import Heading from "@/app/components/Heading";
 import Input from "@/app/components/inputs/Input";
 import { FieldValues, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import Button from "@/app/components/Button";
 import CustomCheckBox from "@/app/components/inputs/CustomCheckBox";
 import DropdownInput from "@/app/components/inputs/DropdownInput";
 
-import update from "@/pages/api/admin/order/update";
-import { User } from "@/pages/api/admin/user/Models";
-import { Delivery } from "@/pages/api/admin/delivery/Models";
 import { Order, EOrderStatus, OrderItem } from "@/pages/api/admin/order/Models";
 import ListObjectContainer from "../OrderItemsContainer";
-import findAll from "@/pages/api/admin/stock/findAll";
+import findAllStock from "@/pages/api/admin/stock/findAll";
 import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import toast from "react-hot-toast";
-import findById from "@/pages/api/admin/stock/findById";
+import { User } from "@/pages/api/admin/user/Models";
+import { Stock } from "@/pages/api/admin/stock/Models";
+import { Delivery } from "@/pages/api/admin/delivery/Models";
+import findAllUser from "@/pages/api/admin/user/findAll";
+import findAllDelivery from "@/pages/api/admin/delivery/findAll";
 
 interface ViewFormProps {
   foundOrder?: Order,
@@ -37,7 +36,9 @@ interface FormData {
 
 const ViewForm = (viewFormProps: ViewFormProps) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [allStocks, setAllStocks] = useState();
+  const [allStocks, setAllStocks] = useState<Stock[]>();
+  const [allUsers, setAllUser] = useState<User[]>();
+  const [allDeliveries, setAllDeliveries] = useState<Delivery[]>();
   const orderItemChema: ZodType<OrderItem> = z.object({
     quantity: z.number().int().min(1),
     stockId: z.string(),
@@ -81,9 +82,17 @@ const ViewForm = (viewFormProps: ViewFormProps) => {
   useEffect(() => {
     const fetchAllStock = async () => {
       try {
-        const response = await findAll({pageSize: 500});
-        if (response) {
-          setAllStocks(response.items);
+        const stockResp = await findAllStock({pageSize: 500});
+        if (stockResp) {
+          setAllStocks(stockResp.items);
+        }
+        const userResp = await findAllUser({pageSize: 100});
+        if (userResp) {
+          setAllUser(userResp.items);
+        } 
+        const deliveryResp = await findAllDelivery({pageSize: 10});
+        if (deliveryResp) {
+          setAllDeliveries(deliveryResp.items);
         }
       } catch (error) {
         console.error('fetch all stocks failed');
@@ -140,8 +149,8 @@ const ViewForm = (viewFormProps: ViewFormProps) => {
         register={register}
         errors={errors}
         options={
-          viewFormProps.allUsers ?
-            viewFormProps.allUsers.map(user => ({
+          allUsers ?
+          allUsers.map((user: any) => ({
               value: user.id,
               label: user.firstName + " " + user.lastName,
             })) : []}
@@ -175,8 +184,8 @@ const ViewForm = (viewFormProps: ViewFormProps) => {
         register={register}
         errors={errors}
         options={
-          viewFormProps.allDeliveries != undefined ?
-            viewFormProps.allDeliveries.map(delivery => ({
+          allDeliveries != undefined ?
+            allDeliveries.map((delivery: any) => ({
               value: delivery.id,
               label: delivery.name,
             })) : []}

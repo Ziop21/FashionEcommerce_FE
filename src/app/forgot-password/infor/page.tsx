@@ -17,12 +17,12 @@ import FormWrap from "@/app/components/FormWrap";
 import Container from "@/app/components/Container";
 
 type FormData = {
-    email: string;
+    email: string | null;
     password: string;
     confirmPassword: string;
 }
 
-const infor = () => {
+const Infor = () => {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
@@ -39,15 +39,17 @@ const infor = () => {
     useForm<FormData>({
         resolver: zodResolver(schema),
         defaultValues: {
-            email: localStorage.getItem('FE_UserEmail') ?? '',
+            email: typeof window !== 'undefined' ? localStorage.getItem("FE_UserEmail") : '',
         }
     });
 
     const onSubmit = async (data: FormData) => {
+        console.log('data', data);
+        console.log('localStorage.getItem(FE_Token)', localStorage.getItem('FE_Token'));
         setIsLoading(true);
         try {
             const registerData: RegisterProps = { 
-                email: data.email, 
+                email: data.email ?? '', 
                 password: data.password, 
                 confirmPassword: data.confirmPassword };
             const response = await verifyToken(localStorage.getItem('FE_Token') ?? '', registerData);
@@ -60,6 +62,8 @@ const infor = () => {
         } catch (error) {
             toast.error("Reset password failed. Please try again...")
             router.push("/forgot-password");
+            localStorage.removeItem('FE_UserEmail');
+            localStorage.removeItem('FE_Token');
         }
     }
 
@@ -96,4 +100,4 @@ const infor = () => {
     </>
     );
 }
-export default infor;
+export default Infor;

@@ -1,4 +1,5 @@
 import api from "@/pages/api/api";
+import { CategoryProduct } from "./Models";
 
 const add = async (categoryProduct: CategoryProduct) => {
   try {
