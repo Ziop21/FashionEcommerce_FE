@@ -37,8 +37,8 @@ export async function middleware(request: NextRequest) {
     try {
       // rightResponse.cookies.set('before', 'before call api')
       const cartToken = await add();
-      rightResponse.cookies.set(JWT_CART, cartToken, {name: JWT_CART, value: cartToken, sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY})
-      wrongResponse.cookies.set(JWT_CART, cartToken, {name: JWT_CART, value: cartToken, sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY})
+      rightResponse.cookies.set(JWT_CART, cartToken)
+      wrongResponse.cookies.set(JWT_CART, cartToken)
       
       // rightResponse.cookies.set('after', 'after call api')
     } catch (error: any) {
