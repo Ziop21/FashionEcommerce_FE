@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
     },
   };
   
-  request.cookies.set(options);
+  rightResponse.cookies.set(options);
   
   if (cartTokenCookie === undefined) {
     try {
