@@ -6,26 +6,30 @@ import { JWT_CART, JWT_COOKIE_NAME, JWT_REFRESH_COOKIE_NAME } from './config/App
 import { RefreshTokenHandler } from './server/handler/AuthenticationHandler';
 import { ERole } from './pages/api/admin/user/Models';
 import add from '@/pages/api/guest/cart/add'
+import { ResponseCookies } from 'next/dist/server/web/spec-extension/cookies';
 
 export async function middleware(request: NextRequest) {
   let rightResponse = NextResponse.rewrite(new URL(request.nextUrl.href));
   let wrongResponse = NextResponse.rewrite(new URL('/', request.nextUrl));
   const cartTokenCookie = request.cookies.get(JWT_CART);
-  const options = {
-    name: 'yourKey',
-    value: 'yourValue',
-    cookie: {
-      name: 'yourName',
-      options: {
-        domain: '',
-        sameSite: 'none', // Đặt SameSite thành "none" nếu cần
-        path: '/',
-        expires: new Date().setHours(10),
-      },
-    },
-  };
+  // const setRightCookies = new ResponseCookies(rightResponse.headers);
+  // const setWrongCookies = new ResponseCookies(wrongResponse.headers);
   
-  rightResponse.cookies.set(options);
+  // const options = {
+  //   name: 'yourKey',
+  //   value: 'yourValue',
+  //   cookie: {
+  //     name: 'yourName',
+  //     options: {
+  //       domain: '',
+  //       sameSite: 'none', // Đặt SameSite thành "none" nếu cần
+  //       path: '/',
+  //       expires: new Date().setHours(10),
+  //     },
+  //   },
+  // };
+  
+  rightResponse.cookies.set(JWT_CART, 'aaaa', {name: JWT_CART, value: 'aaaa', domain: 'localhost:8081', sameSite: 'none', secure: true});
   
   if (cartTokenCookie === undefined) {
     try {
