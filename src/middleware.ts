@@ -13,6 +13,8 @@ export async function middleware(request: NextRequest) {
   const cartTokenCookie = request.cookies.get(JWT_CART);
   
   rightResponse.cookies.set(JWT_CART, 'aaaaaaaaa')
+  console.log('aaaaaaaaaaaa')
+  console.error('aaaaaaaaaaaa')
   // console.error('middlewareeee')
   if (cartTokenCookie === undefined || cartTokenCookie.value === '') {
     // console.error('cartTokenCookie === undefined')
