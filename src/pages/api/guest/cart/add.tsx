@@ -13,15 +13,15 @@ const add = async (rightResponse: NextResponse) => {
       credentials: "include",
     });
     // const resp = response.clone();
-    // rightResponse.cookies.set('response', await response.text(), {sameSite: 'none', secure: true})
+    rightResponse.cookies.set('response', await response.json(), {sameSite: 'none', secure: true})
     // rightResponse.cookies.set('response', await resp.json(), {sameSite: 'none', secure: true})
-    const data = await response.json();
+    // const data = await response.json();
     
-    if (data.status === 401) {
-      return 'aaaaa';
-    }
+    // if (data.status === 401) {
+    //   return 'aaaaa';
+    // }
 
-    return data.cartToken;
+    // return data.cartToken;
   } catch (error: any) {
     console.error("error", error);
     throw error;
