@@ -16,7 +16,7 @@ const add = async (rightResponse: NextResponse) => {
     // rightResponse.cookies.set('response', await resp.json(), {sameSite: 'none', secure: true})
     const data = await response.json();
     
-    rightResponse.cookies.set('response', data.cartToken, {sameSite: 'none', secure: true})
+    rightResponse.cookies.set('response', data, {sameSite: 'none', secure: true})
     // if (data.status === 401) {
     //   return 'aaaaa';
     // }
