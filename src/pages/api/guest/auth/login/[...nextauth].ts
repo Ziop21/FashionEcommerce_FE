@@ -16,8 +16,8 @@ const Login = async (loginProps: LoginProps) => {
     });
     const jwt = response.data.jwt;
     const refreshJwt = response.data.refreshJwt;
-    Cookies.set(JWT_COOKIE_NAME, jwt, { expires: COOKIE_EXPIRED_DAY, path: '/' });
-    Cookies.set(JWT_REFRESH_COOKIE_NAME, refreshJwt, { expires: COOKIE_EXPIRED_DAY, path: '/' });
+    Cookies.set(JWT_COOKIE_NAME, jwt, {secure: true, sameSite: 'None',  expires: COOKIE_EXPIRED_DAY, path: '/' });
+    Cookies.set(JWT_REFRESH_COOKIE_NAME, refreshJwt, {secure: true, sameSite: 'None', expires: COOKIE_EXPIRED_DAY, path: '/' });
     return response;
   } catch (error) {
     throw error;
