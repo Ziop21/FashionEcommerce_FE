@@ -24,11 +24,11 @@ const UserRecord: React.FC<UserProps> = ({ data, index, afterDelete }) => {
 
     useEffect(() => {
         const init = async () => {
-            if (data.updatedBy !== null && data.updatedBy !== undefined){
+            if (data.updatedBy !== null && data.updatedBy !== undefined) {
                 const updatedBy = await findUserById(data.updatedBy);
                 setUpdatedBy(updatedBy.firstName + ' ' + updatedBy.lastName);
             }
-            if (data.userLevelId !== null && data.userLevelId !== undefined){
+            if (data.userLevelId !== null && data.userLevelId !== undefined) {
                 const respone = await findUserLevelById(data.userLevelId);
                 setUserLevel(respone.name);
             }
@@ -50,10 +50,7 @@ const UserRecord: React.FC<UserProps> = ({ data, index, afterDelete }) => {
                 console.log('usser', fetchedUser)
                 if (fetchedUser.avatar) {
                     const oldImageRef = ref(storage, `images/user/${fetchedUser.avatar}`)
-                    const oldImageURL = await getDownloadURL(oldImageRef);
-                    if (oldImageURL) {
-                        await deleteObject(oldImageRef);
-                    }
+                    await deleteObject(oldImageRef);
                 }
                 await deleteById(id);
                 console.log("Deleted user ID:", id);

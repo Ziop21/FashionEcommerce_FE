@@ -61,10 +61,7 @@ const ImagesContainer: React.FC<ListObjectInputProps> = ({
             const oldFileName = Object.values(fields[index]).slice(0, -1).join('');
             if (oldFileName && Object.keys(oldFileName).length > 0) {
                 const oldImageRef = ref(storage, `${storagePath}${oldFileName}`)
-                const oldImageURL = await getDownloadURL(oldImageRef);
-                if (oldImageURL) {
-                    await deleteObject(oldImageRef);
-                }
+                await deleteObject(oldImageRef);
             }
             remove(index)
         } catch (error) {

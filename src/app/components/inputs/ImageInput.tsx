@@ -58,10 +58,7 @@ const ImageInput: React.FC<ImageInputProps> = ({
                 const oldFileName = getValues(id);
                 if (oldFileName && Object.keys(oldFileName).length > 0) {
                     const oldImageRef = ref(storage, `${storagePath}${oldFileName}`)
-                    const oldImageURL = await getDownloadURL(oldImageRef);
-                    if (oldImageURL) {
-                        await deleteObject(oldImageRef);
-                    }
+                    await deleteObject(oldImageRef);
                 }
             } catch (error) {
                 console.error('Error deleting old image:', error);
@@ -111,16 +108,16 @@ const ImageInput: React.FC<ImageInputProps> = ({
             )}
             {imageUrl &&
                 <div className="mr-auto mt-5">
-                <Image
-                    width={imageWidth}
-                    height={imageHeigth}
-                    src={imageUrl ?? ''}
-                    alt={getValues(id)}
-                    className="w-full h-full object-contain"
-                />
-            </div>
+                    <Image
+                        width={imageWidth}
+                        height={imageHeigth}
+                        src={imageUrl ?? ''}
+                        alt={getValues(id)}
+                        className="w-full h-full object-contain"
+                    />
+                </div>
             }
-            
+
         </div>
     );
 }
