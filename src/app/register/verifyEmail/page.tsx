@@ -18,8 +18,8 @@ const Verify = (token: VerifyProps) => {
     useEffect(() => {
         if (token) {
             const verifyToken = async () => {
-                // console.log("token");
-                // console.log(token.searchParams.token);
+                console.log("token");
+                console.log(token.searchParams.token);
                 try {
                     const response = await verifyEmailToken(token.searchParams.token);
                     if (response) {
