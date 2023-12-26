@@ -3,30 +3,32 @@
 import findEmail from "@/pages/api/guest/auth/forgotPassword/findEmail";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useSearchParams } from 'next/navigation'
 
-interface VerifyProps {
-    searchParams: {
-        token: string;
-    }
-}
-
-const Verify = (token: VerifyProps) => {
+const Verify = () => {
     const router = useRouter();
+    const searchParams = useSearchParams()
+
     useEffect(() => {
-        const getEmailFromToken = async () => {
-            try {
-                const email = await findEmail(token.searchParams.token);
-                if (email) {
-                    localStorage.setItem('FE_UserEmail', email);
-                    localStorage.setItem('FE_Token', token.searchParams.token);
+        if (searchParams) {
+            const token = searchParams.get('token')
+            if (token) {
+                const getEmailFromToken = async () => {
+                    try {
+                        const email = await findEmail(token);
+                        if (email) {
+                            localStorage.setItem('FE_UserEmail', email);
+                            localStorage.setItem('FE_Token', token);
+                        }
+                    } catch (error) {
+                        throw error;
+                    }
                 }
-            } catch (error) {
-                throw error;
+                getEmailFromToken()
+                router.push('/forgot-password/infor')
             }
         }
-        getEmailFromToken()
-        router.push('/forgot-password/infor')
-    }, [token])
+    }, [searchParams])
 }
 
 export default Verify;
