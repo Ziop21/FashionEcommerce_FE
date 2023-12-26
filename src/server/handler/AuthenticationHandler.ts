@@ -1,8 +1,8 @@
 import refreshToken from "@/server/api/refreshToken";
 
-export const RefreshTokenHandler = async () => {
+export const RefreshTokenHandler = async (refreshJWT: string) => {
   try {
-    const jwt = await refreshToken();   
+    const jwt = await refreshToken(refreshJWT);   
     if (jwt) {
       return jwt;
     }

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { getCurrentUserRoles } from './server/handler/AuthorizationHanlder';
 import AuthenJwtDecoder from './utils/AuthenJwtDecoder';
-import { JWT_CART, JWT_COOKIE_NAME, JWT_REFRESH_COOKIE_NAME } from './config/ApplicationConfig';
+import { AUTHORIZATION_TYPE, JWT_CART, JWT_COOKIE_NAME, JWT_REFRESH_COOKIE_NAME } from './config/ApplicationConfig';
 import { RefreshTokenHandler } from './server/handler/AuthenticationHandler';
 import { ERole } from './pages/api/admin/user/Models';
 import add from '@/pages/api/guest/cart/add'
@@ -11,47 +11,48 @@ export async function middleware(request: NextRequest) {
   let rightResponse = NextResponse.rewrite(new URL(request.nextUrl.href));
   let wrongResponse = NextResponse.rewrite(new URL('/', request.nextUrl));
   const cartTokenCookie = request.cookies.get(JWT_CART);
-  
-  // rightResponse.cookies.set('withName', 'aaaa', {sameSite: 'none', secure: true});
+
+  // rightResponse.cookies.set('withName', 'aaaa');
   // rightResponse.cookies.set('withoutName', 'aaaa', { sameSite: 'none', secure: true, expires: COOKIE_EXPIRED_DAY});
-  
+
 
   if (cartTokenCookie === undefined) {
     try {
       // rightResponse.cookies.set('before', 'before call api')
       const cartToken = await add();
-      rightResponse.cookies.set(JWT_CART, cartToken, {sameSite: 'none', secure: true})
-      wrongResponse.cookies.set(JWT_CART, cartToken, {sameSite: 'none', secure: true})
-      
+      rightResponse.cookies.set(JWT_CART, cartToken)
+      wrongResponse.cookies.set(JWT_CART, cartToken)
+
       // rightResponse.cookies.set('after', 'after call api')
     } catch (error: any) {
-      // rightResponse.cookies.set('error', error, {sameSite: 'none', secure: true})
+      // rightResponse.cookies.set('error', error)
       console.error("Can not create cart token !!!");
     }
   }
 
   // rightResponse.cookies.set('end', 'end add cart')
 
-  const jwt = request.cookies.get(JWT_COOKIE_NAME)
-  if (jwt) {
+  const jwtCookie = request.cookies.get(JWT_COOKIE_NAME)
+  if (jwtCookie) {
     try {
-      await AuthenJwtDecoder(jwt.value);
+      await AuthenJwtDecoder(jwtCookie.value);
     } catch (error: any) {
       if (error.name === 'JWTExpired') {
         try {
           console.error("JWT is expired");
-          const jwt = await RefreshTokenHandler();
-          if (jwt) {
-            // let response = NextResponse.redirect(new URL(request.nextUrl.href));
-            rightResponse.cookies.set(JWT_COOKIE_NAME, jwt, {sameSite: 'none', secure: true})
-          } else {
-            // let response =  NextResponse.rewrite(new URL('/login', request.nextUrl));
-            wrongResponse.cookies.delete(JWT_COOKIE_NAME);
-            wrongResponse.cookies.delete(JWT_REFRESH_COOKIE_NAME);
-            console.error("send refresh token failed");
+
+          const refreshJWTCookie = request.cookies.get(JWT_REFRESH_COOKIE_NAME);
+          if (refreshJWTCookie) {
+            const jwt = await RefreshTokenHandler(refreshJWTCookie.value);
+            if (jwt) {
+              rightResponse.cookies.set(JWT_COOKIE_NAME, jwt)
+            } else {
+              wrongResponse.cookies.delete(JWT_COOKIE_NAME);
+              wrongResponse.cookies.delete(JWT_REFRESH_COOKIE_NAME);
+              console.error("send refresh token failed");
+            }
           }
         } catch (error) {
-          // let response = NextResponse.rewrite(new URL('/login', request.nextUrl));
           wrongResponse.cookies.delete(JWT_COOKIE_NAME);
           wrongResponse.cookies.delete(JWT_REFRESH_COOKIE_NAME);
           console.error("Send refresh token faileed");

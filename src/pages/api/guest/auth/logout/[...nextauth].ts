@@ -7,12 +7,12 @@ const API_BASE_URL = API_BACKEND_URL;
 
 const Logout = async () => {
   try {
-    const jwt = localStorage.getItem("jwt");
+    // const jwt = localStorage.getItem("jwt");
     const api = axios.create({
       baseURL: API_BASE_URL,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': jwt,
+        // 'Authorization': jwt,
       },
       withCredentials: true,
     });
