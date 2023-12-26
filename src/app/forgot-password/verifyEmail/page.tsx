@@ -4,7 +4,13 @@ import findEmail from "@/pages/api/guest/auth/forgotPassword/findEmail";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const Verify = (token: any) => {
+interface VerifyProps {
+    searchParams: {
+        token: string;
+    }
+}
+
+const Verify = (token: VerifyProps) => {
     const router = useRouter();
     useEffect(() => {
         const getEmailFromToken = async () => {

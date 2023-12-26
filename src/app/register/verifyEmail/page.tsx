@@ -6,7 +6,13 @@ import { useEffect } from "react";
 import verifyEmailToken from "@/pages/api/guest/auth/register/verifyEmailToken";
 import toast from "react-hot-toast";
 
-const Verify = (token: any) => {
+interface VerifyProps {
+    searchParams: {
+        token: string;
+    }
+}
+
+const Verify = (token: VerifyProps) => {
     const router = useRouter();
 
     useEffect(() => {
