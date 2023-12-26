@@ -16,7 +16,10 @@ const Verify = (token: any) => {
                 console.log(token.searchParams.token);
                 const response = await verifyEmailToken(token.searchParams.token);
                 if (response) {
-                    localStorage.setItem('FE_UserEmail', response)
+                    await new Promise<void>(resolve => {
+                        localStorage.setItem('FE_UserEmail', response);
+                        resolve();
+                    });                    
                     toast.success("Verify successfully...")
                     router.push("/register/infor")
                 }
