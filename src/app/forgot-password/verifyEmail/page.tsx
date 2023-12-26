@@ -8,16 +8,17 @@ const Verify = (token: any) => {
     const router = useRouter();
     useEffect(() => {
         const getEmailFromToken = async () => {
-            const email = await findEmail(token.searchParams.token);
-            if (email) {
-                await new Promise<void>(resolve => {
+            try {
+                const email = await findEmail(token.searchParams.token);
+                if (email) {
                     localStorage.setItem('FE_UserEmail', email);
                     localStorage.setItem('FE_Token', token.searchParams.token);
-                    resolve();
-                });
+                }
+            } catch (error) {
+                throw error;
             }
         }
-        getEmailFromToken();
+        getEmailFromToken()
         router.push('/forgot-password/infor')
     }, [token])
 }

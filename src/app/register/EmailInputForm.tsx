@@ -37,7 +37,7 @@ const EmailInputForm = () => {
 
     const onSubmit = async (data: FormData) => {
         try {
-            localStorage.setItem('FE_UserEmail', data.email)
+            // localStorage.setItem('FE_UserEmail', data.email)
             setIsLoading(true);
             const response = await sendToken(data.email);
             toast.success("Send token successfully......");

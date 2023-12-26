@@ -8,27 +8,29 @@ import toast from "react-hot-toast";
 
 const Verify = (token: any) => {
     const router = useRouter();
-    
+
     useEffect(() => {
         if (token) {
             const verifyToken = async () => {
-                console.log("token");
-                console.log(token.searchParams.token);
-                const response = await verifyEmailToken(token.searchParams.token);
-                if (response) {
-                    await new Promise<void>(resolve => {
+                // console.log("token");
+                // console.log(token.searchParams.token);
+                try {
+                    const response = await verifyEmailToken(token.searchParams.token);
+                    if (response) {
                         localStorage.setItem('FE_UserEmail', response);
-                        resolve();
-                    });                    
-                    toast.success("Verify successfully...")
-                    router.push("/register/infor")
+                        toast.success("Verify successfully...")
+                        router.push("/register/infor")
+                    }
+                } catch (error) {
+                    throw error;
                 }
+              
             }
             verifyToken();
         }
     }, [token])
-    
-    
+
+
 }
- 
+
 export default Verify;
