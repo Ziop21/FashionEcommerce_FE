@@ -74,11 +74,12 @@ const ManageOrders = () => {
     <div className="p-8">
       <Container>
         <div>
-          <Button
+          {/*<Button
             outline={true}
             custom="bg-green-300"
             label="Add Order"
-            onClick={handleAddOrderClick} icon={SiAddthis} />
+            onClick={handleAddOrderClick} icon={SiAddthis}
+  /> */}
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <input
               placeholder="search something"
