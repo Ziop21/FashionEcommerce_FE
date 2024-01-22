@@ -17,7 +17,7 @@ export interface Stock {
 }
 
 export interface Review {
-    userId: string;
+    orderId: string;
     content?: string;
     rating: number;
     images?: string[];

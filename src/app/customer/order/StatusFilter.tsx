@@ -6,7 +6,7 @@ import { UseFormSetValue } from "react-hook-form";
 
 interface StatusFilterProps {
   onChange: (statuses: EOrderStatus[]) => void;
- }
+}
 
 const StatusFilter: React.FC<StatusFilterProps> = ({
   onChange,
@@ -27,7 +27,7 @@ const StatusFilter: React.FC<StatusFilterProps> = ({
   const handleSelectionChange = (keys: any) => {
     // console.log(keys)
     let selectedStatusesArray: EOrderStatus[] = []
-    if (keys){
+    if (keys) {
       keys.forEach((item: any) => {
         // console.log('item', item)
         selectedStatusesArray.push(item);

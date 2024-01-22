@@ -1,20 +1,21 @@
 export interface Stock {
     id: string,
+    productId: string,
     sizeId: string,
     colorId: string,
     quantity: number,
     reviews: Review[]
 }
  
-interface Review {
-    sizeName: string,
-    colorName: string,
+export interface Review {
+    // sizeName?: string,
+    // colorName?: string,
     orderId: string,
-    userId: string,
-    username: string,
+    // userId: string,
+    // username: string,
     content: string,
     rating: number,
     images: string[],
-    createdAt: Date,
-    updatedAt: Date
+    createdAt?: Date,
+    updatedAt?: Date
 }

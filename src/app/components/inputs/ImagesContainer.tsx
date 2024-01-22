@@ -11,6 +11,7 @@ import { storage } from '@/config/firebaseConfig';
 interface ListObjectInputProps {
     id: string;
     label: string;
+    maximumImages?: number;
     itemLabel: string;
     storagePath: string;
     disabled: boolean;
@@ -28,6 +29,7 @@ interface ListObjectInputProps {
 const ImagesContainer: React.FC<ListObjectInputProps> = ({
     id,
     label,
+    maximumImages,
     itemLabel,
     storagePath,
     disabled,
@@ -105,7 +107,17 @@ const ImagesContainer: React.FC<ListObjectInputProps> = ({
                 </div>
             </div>
             <div className="ml-2">
-                <Button custom='w-5 ml-2' disabled={disabled} label='Add' onClick={() => append({})} />
+                <Button custom='w-5 ml-2' disabled={disabled} label='Add' onClick={() => {
+                    if (maximumImages) {
+                        const images: File[] = getValues(id);
+                        if (images.length < maximumImages){
+                            append();
+                        }
+                    }
+                    else {
+                        append()
+                    }
+                    }} />
                 <Button custom='w-5 ml-2 mt-2' disabled={disabled} label='Clear' onClick={() => handleClearBtnClick()} />
             </div>
         </>

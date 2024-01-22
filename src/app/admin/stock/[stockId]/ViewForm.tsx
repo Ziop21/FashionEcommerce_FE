@@ -41,7 +41,7 @@ interface FormData {
 }
 
 const reviewSchema = z.object({
-  userId: z.string().min(1),
+  orderId: z.string().min(1),
   content: z.string().min(1),
   rating: z.number().int().min(1).max(5),
   images: z.array(z.string().min(1)),
